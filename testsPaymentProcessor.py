@@ -1,6 +1,10 @@
 import unittest
-from unittest.mock import Mock, patch
-from paymentGateway import PaymentGateway, TransactionResult, TransactionStatus, PaymentException, NetworkException, RefundException
+from unittest.mock import Mock
+from paymentGateway import (
+    PaymentGateway,
+    TransactionResult,
+    TransactionStatus,
+)
 from paymentProcessor import PaymentProcessor
 
 
@@ -19,7 +23,7 @@ class TestPaymentProcessor(unittest.TestCase):
             success=True,
             transaction_id="123",
             message="Payment successful",
-            transaction_status=TransactionStatus.COMPLETED
+            transaction_status=TransactionStatus.COMPLETED,
         )
 
         # Wywołanie testowanej metody
@@ -40,7 +44,7 @@ class TestPaymentProcessor(unittest.TestCase):
             success=False,
             transaction_id="456",
             message="Insufficient funds",
-            transaction_status=TransactionStatus.FAILED
+            transaction_status=TransactionStatus.FAILED,
         )
 
         result = self.processor.process_payment("user_1", 100.0)
@@ -74,7 +78,7 @@ class TestPaymentProcessor(unittest.TestCase):
             success=True,
             transaction_id="789",
             message="Refund successful",
-            transaction_status=TransactionStatus.COMPLETED
+            transaction_status=TransactionStatus.COMPLETED,
         )
 
         result = self.processor.refund_payment("789")
@@ -90,7 +94,7 @@ class TestPaymentProcessor(unittest.TestCase):
             success=False,
             transaction_id="000",
             message="Transaction not found",
-            transaction_status=TransactionStatus.FAILED
+            transaction_status=TransactionStatus.FAILED,
         )
 
         result = self.processor.refund_payment("000")
@@ -131,7 +135,6 @@ class TestPaymentProcessor(unittest.TestCase):
         self.gateway_mock.get_status.assert_called_once_with("000")
 
     # def test_get_payment_status_network_exception(self):
-    #     """Obsługa wyjątku NetworkException przy pobieraniu statusu transakcji."""
     #     self.gateway_mock.get_status.side_effect = NetworkException(
     #         "Network error")
 
