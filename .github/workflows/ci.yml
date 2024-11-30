@@ -9,6 +9,28 @@ on:
       - zad1
 
 jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.10"
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Run SuperLinter
+        uses: github/super-linter@v4
+        env:
+          RUN_LOCAL: true
+        with:
+          run_in_docker: true
+
   test:
     runs-on: ubuntu-latest
     steps:
