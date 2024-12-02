@@ -33,8 +33,7 @@ class TestPaymentProcessor(unittest.TestCase):
         self.assertTrue(result.success)
         self.assertEqual(result.transaction_id, "123")
         self.assertEqual(result.message, "Payment successful")
-        self.assertEqual(result.transaction_status,
-                         TransactionStatus.COMPLETED)
+        self.assertEqual(result.transaction_status, TransactionStatus.COMPLETED)
         self.gateway_mock.charge.assert_called_once_with("user_1", 100.0)
 
     def test_process_payment_insufficient_funds(self):

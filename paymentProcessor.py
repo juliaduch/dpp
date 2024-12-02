@@ -14,8 +14,7 @@ class PaymentProcessor:
         self.gateway = gateway
         self.logger = logging.getLogger(__name__)
 
-    def process_payment(self, user_id: str,
-                        amount: float) -> TransactionResult:
+    def process_payment(self, user_id: str, amount: float) -> TransactionResult:
         if not user_id or amount <= 0:
             raise ValueError("Invalid user ID or amount.")
         try:
@@ -49,10 +48,8 @@ class PaymentProcessor:
         if not transaction_id:
             raise ValueError("Invalid transaction ID.")
         try:
-            status = self.gateway.get_status(
-                transaction_id)
-            self.logger.info(
-                f"Fetched payment status for {transaction_id}: {status}")
+            status = self.gateway.get_status(transaction_id)
+            self.logger.info(f"Fetched payment status for {transaction_id}: {status}")
             return status
         except NetworkException:
             self.logger.error("Network error when fetching payment status.")
